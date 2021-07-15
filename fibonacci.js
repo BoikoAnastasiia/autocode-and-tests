@@ -35,3 +35,9 @@ const fibonacciNumbers = num => {
 // };
 
 console.log(fibonacciNumbers(6));
+
+return Number.isInteger(num)
+  ? num <= 1
+    ? num
+    : fibonacciNumbers(num - 1) + fibonacciNumbers(num - 2)
+  : 'Passed argument is not a number';
