@@ -6,9 +6,6 @@ function calc(obj) {
   const arrays = Object.values(obj);
   const names = Object.keys(obj);
 
-  const firstAr = [2, 1, 1, 1];
-  const secondAr = [1, 2, 1, 1];
-
   const firstObj = Object.fromEntries(
     arrays[0].map((_, i) => [arrays[0][i], firstAr[i]])
   );
@@ -39,3 +36,55 @@ console.log(calc(obj));
 // }
 
 console.log(obj.values);
+
+function calc({ ...arg }) {
+  const result = {};
+  function res(arg) {
+    const key = Object.keys(arg);
+    result[key[0]] = {};
+    function rec(arg, key) {
+      if (arg[key[0]] && arg[key[0]].includes(arg[key[0]][0])) {
+        result[key[0]].hasOwnProperty(arg[key[0]][0])
+          ? (result[key[0]][arg[key[0]][0]] += 1)
+          : (result[key[0]][arg[key[0]][0]] = 1);
+        arg[key[0]].shift();
+        rec(arg, key);
+      } else if (arg.hasOwnProperty(key[0])) {
+        delete arg[key[0]];
+        key.shift();
+        arg.hasOwnProperty(key[0]) ? (result[key[0]] = {}) : null;
+        rec(arg, key);
+      }
+    }
+    rec(arg, key);
+  }
+  res(arg);
+  return result;
+}
+
+function calc(obj) {
+  const keys = Object.keys(obj);
+  const values = Object.values(obj);
+
+  const result = keys.reduce((acc, name, index, array) => {
+    acc[name] = {};
+
+    values[index].forEach(fruit => {
+      acc[name][fruit] = !acc[name][fruit] ? 1 : acc[name][fruit] + 1;
+    });
+
+    return acc;
+  }, {});
+
+  return result;
+}
+
+function calc(obj) {
+  return Object.keys(obj).reduce((acc, key) => {
+    acc[key] = obj[key].reduce((acc, key) => {
+      acc[key] = acc[key] ? acc[key] + 1 : 1;
+      return acc;
+    }, {});
+    return acc;
+  }, {});
+}
