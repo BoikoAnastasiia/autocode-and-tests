@@ -190,11 +190,17 @@ const products = [
 
 const sortedByRating = array => {
   return [...array].sort(
-    (a, b) => +a.ratingReviews.split(' ')[0] - +b.ratingReviews.split(' ')[0]
+    (a, b) => +b.ratingReviews.split(' ')[0] - +a.ratingReviews.split(' ')[0]
   );
 };
 
-const sortedByPrice = () => {
-  return [...array].sort((a, b) => a.price?.newUan - b.price?.newUan);
+const sortedByPrice = array => {
+  return [...array].sort(
+    (a, b) =>
+      +(b.price.newUan?.price).match(/\d/gm).join('') -
+      +(a.price.newUan?.price).match(/\d/gm).join('')
+  );
 };
-console.log(sortedByRating(products));
+
+console.log(sortedByPrice(products));
+console.log(products[0].price.newUan.match(/\d/gm).join(''));
