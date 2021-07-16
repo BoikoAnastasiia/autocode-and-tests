@@ -188,14 +188,13 @@ const products = [
   },
 ];
 
-const sortedByRating = () => {
-  // Student implementation
-  return;
+const sortedByRating = array => {
+  return [...array].sort(
+    (a, b) => +a.ratingReviews.split(' ')[0] - +b.ratingReviews.split(' ')[0]
+  );
 };
 
 const sortedByPrice = () => {
-  // Student implementation
-  return;
+  return [...array].sort((a, b) => a.price?.newUan - b.price?.newUan);
 };
-
-module.exports = { sortedByRating, sortedByPrice, products };
+console.log(sortedByRating(products));
