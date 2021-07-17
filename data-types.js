@@ -6,37 +6,55 @@ function convert(str) {
     return el + '';
   });
 }
-console.log(convert('1', 2, 3, '4'));
 
-const executeforEach = () => {
-  // Student implementation
+const executeforEach = (array, func) => {
+  for (i = 0; i <= array.length; i++) {
+    func(array[i]);
+  }
   return;
 };
 
-const mapArray = () => {
-  // Student implementation
-  return;
+const mapArray = (arr, func) => {
+  let newAr = [...arr];
+
+  executeforEach(newAr, el => {
+    parseInt(el);
+  });
+
+  for (i = 0; i <= newAr.length; i++) {
+    func(newAr[i]);
+  }
+  return newAr;
 };
+
+console.log(
+  mapArray([2, '5', 8], function (el) {
+    return el + 3;
+  })
+);
 
 const filterArray = () => {
   // Student implementation
   return;
 };
 
-const flipOver = () => {
-  // Student implementation
-  return;
+const flipOver = str => {
+  return str.split('').reverse().join('');
 };
 
-const makeListFromRange = () => {
-  // Student implementation
-  return;
+const makeListFromRange = array => {
+  let max = Math.max(...array);
+  let min = Math.min(...array);
+  return [min, max];
 };
 
-const getArrayOfKeys = () => {
-  // Student implementation
-  return;
+const getArrayOfKeys = (array, name) => {
+  return array.map(el => el.name);
 };
+const actors = [
+  { name: 'tommy', age: 36 },
+  { name: 'lee', age: 28 },
+];
 
 const substitute = () => {
   // Student implementation
