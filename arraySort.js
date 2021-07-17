@@ -188,20 +188,19 @@ const products = [
   },
 ];
 
-const sortedByRating = array => {
+const sortedByRating = () => {
+  const array = products;
   return [...array].sort(
     (a, b) => +b.ratingReviews.split(' ')[0] - +a.ratingReviews.split(' ')[0]
   );
 };
 
-const sortedByPrice = array => {
-  return [...array].sort((a, b) => {
-    let one = (a.price.newUan || a.price).match(/\d/gm).join('');
-    let two = (b.price.newUan || b.price).match(/\d/gm).join('');
-    if (+one < +two) {
-      return 1;
-    }
-    return -1;
+const sortedByPrice = () => {
+  const productsCopy = [...products];
+  return productsCopy.sort((a, b) => {
+    let priceA = parseFloat((a.price.newUan || a.price).replace(' ', ''));
+    let priceB = parseFloat((b.price.newUan || b.price).replace(' ', ''));
+    return priceB - priceA;
   });
 };
 
