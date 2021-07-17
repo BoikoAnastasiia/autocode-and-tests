@@ -8,24 +8,24 @@ function convert(str) {
 }
 
 const executeforEach = (array, func) => {
-  for (i = 0; i <= array.length; i++) {
+  for (i = 0; i < array.length; i++) {
     func(array[i]);
   }
   return;
 };
 
 const mapArray = (arr, func) => {
-  let newAr = [...arr];
+  let newAr = [];
+  executeforEach(arr, el => newAr.push(func(+el)));
 
-  executeforEach(newAr, el => {
-    parseInt(el);
-  });
-
-  for (i = 0; i <= newAr.length; i++) {
-    func(newAr[i]);
-  }
   return newAr;
 };
+
+console.log(
+  mapArray([2, '5', 8], function (el) {
+    return el + 3;
+  })
+);
 
 const filterArray = () => {
   // Student implementation
@@ -59,12 +59,12 @@ const substitute = ar =>
     return el;
   });
 
-console.log(substitute([58, 14, 48, 2, 31, 29]));
-
-const getPastDay = () => {
+const getPastDay = (date, pastdays) => {
   // Student implementation
   return;
 };
+const date = new Date(2019, 0, 2);
+// console.log(getPastDay(date, 2));
 
 const formatDate = () => {
   // Student implementation
