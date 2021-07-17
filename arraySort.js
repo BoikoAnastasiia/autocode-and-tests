@@ -196,12 +196,21 @@ const sortedByRating = () => {
 };
 
 const sortedByPrice = () => {
-  const productsCopy = [...products];
-  return productsCopy.sort((a, b) => {
-    let priceA = parseFloat((a.price.newUan || a.price).replace(' ', ''));
-    let priceB = parseFloat((b.price.newUan || b.price).replace(' ', ''));
-    return priceB - priceA;
+  const array = products;
+  return [...array].sort((a, b) => {
+    let one = (a.price.newUan || a.price).match(/\d/gm).join('');
+    let two = (b.price.newUan || b.price).match(/\d/gm).join('');
+    return two - one;
   });
 };
+
+// const sortedByPrice = () => {
+//   const productsCopy = [...products];
+//   return productsCopy.sort((a, b) => {
+//     let priceA = parseFloat((a.price.newUan || a.price).replace(' ', ''));
+//     let priceB = parseFloat((b.price.newUan || b.price).replace(' ', ''));
+//     return priceB - priceA;
+//   });
+// };
 
 console.log(sortedByPrice(products));
