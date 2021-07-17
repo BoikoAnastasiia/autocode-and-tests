@@ -27,12 +27,6 @@ const mapArray = (arr, func) => {
   return newAr;
 };
 
-console.log(
-  mapArray([2, '5', 8], function (el) {
-    return el + 3;
-  })
-);
-
 const filterArray = () => {
   // Student implementation
   return;
@@ -49,17 +43,23 @@ const makeListFromRange = array => {
 };
 
 const getArrayOfKeys = (array, name) => {
-  return array.map(el => el.name);
+  return array.map(el => el[name]);
 };
 const actors = [
   { name: 'tommy', age: 36 },
   { name: 'lee', age: 28 },
 ];
 
-const substitute = () => {
-  // Student implementation
-  return;
-};
+const substitute = ar =>
+  ar.map(el => {
+    if (el < 30) {
+      el = '*';
+      return el;
+    }
+    return el;
+  });
+
+console.log(substitute([58, 14, 48, 2, 31, 29]));
 
 const getPastDay = () => {
   // Student implementation
