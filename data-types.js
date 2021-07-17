@@ -70,7 +70,6 @@ const formatDate = date => {
     year: 'numeric',
     month: 'short',
     weekday: 'long',
-
     day: 'numeric',
   };
 
