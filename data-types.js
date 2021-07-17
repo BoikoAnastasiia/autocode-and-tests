@@ -21,15 +21,15 @@ const mapArray = (arr, func) => {
   return newAr;
 };
 
-console.log(
-  mapArray([2, '5', 8], function (el) {
-    return el + 3;
-  })
-);
+const filterArray = (arr, func) => {
+  let newAr = [];
+  executeforEach(arr, el => {
+    if (func(el)) {
+      newAr.push(el);
+    }
+  });
 
-const filterArray = () => {
-  // Student implementation
-  return;
+  return newAr;
 };
 
 const flipOver = str => {
