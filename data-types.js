@@ -38,9 +38,12 @@ const flipOver = str => {
 
 const makeListFromRange = array => {
   let ar = [];
-  for (i = array[0]; i <= array[1]; i++) {
-    ar.push(i);
+  if (array.length > 1) {
+    for (i = array[0]; i <= array[1]; i++) {
+      ar.push(i);
+    }
   }
+
   if (array.length === 1) {
     ar = [...array];
   }
