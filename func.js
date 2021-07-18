@@ -56,11 +56,81 @@ const getSum = (str1, str2) => {
 
   return false;
 };
+let listOfPosts1 = [
+  {
+    id: 1,
+    post: 'some post1',
+    title: 'title 1',
+    author: 'Ivanov',
+    comments: [
+      {
+        id: 1.1,
+        comment: 'some comment1',
+        title: 'title 1',
+        author: 'Rimus',
+      },
+      {
+        id: 1.2,
+        comment: 'some comment2',
+        title: 'title 2',
+        author: 'Uncle',
+      },
+    ],
+  },
+  {
+    id: 2,
+    post: 'some post2',
+    title: 'title 2',
+    author: 'Ivanov',
+    comments: [
+      {
+        id: 1.1,
+        comment: 'some comment1',
+        title: 'title 1',
+        author: 'Rimus',
+      },
+      {
+        id: 1.2,
+        comment: 'some comment2',
+        title: 'title 2',
+        author: 'Uncle',
+      },
+      {
+        id: 1.3,
+        comment: 'some comment3',
+        title: 'title 3',
+        author: 'Rimus',
+      },
+    ],
+  },
+  {
+    id: 3,
+    post: 'some post3',
+    title: 'title 3',
+    author: 'Rimus',
+  },
+  {
+    id: 4,
+    post: 'some post4',
+    title: 'title 4',
+    author: 'Uncle',
+  },
+];
+console.log(listOfPosts1);
 
 const getQuantityPostsByAuthor = (listOfPosts, authorName) => {
-  // add your implementation below
-  return;
+  let post = listOfPosts.filter(el => el.author == authorName).length || 0;
+  let comments =
+    listOfPosts
+      .map(el => el.comments)
+      .filter(el => el)
+      .flatMap(el => el)
+      .filter(comment => comment.author === authorName).length || 0;
+
+  return `Post:${post},comments:${comments}`;
 };
+
+console.log(getQuantityPostsByAuthor(listOfPosts1, 'Rimus'));
 
 const tickets = people => {
   let quarter = people.filter(el => el == 25).length;
@@ -128,64 +198,3 @@ const tickets = people => {
 
 // Your result should be a string like this :  'Post:1,comments:3'  ,
 // If there aren’t post or comments your result will be a string like this 'Post:0,comments:0'
-// let listOfPosts2 = [
-// {
-//     id: 1,
-//     post: 'some post1',
-//     title: 'title 1',
-//     author: 'Ivanov',
-//     comments: [
-//         {
-//             id: 1.1,
-//             comment: 'some comment1',
-//             title: 'title 1',
-//             author: 'Rimus'
-//         },
-//         {
-//             id: 1.2,
-//             comment: 'some comment2',
-//             title: 'title 2',
-//             author: 'Uncle'
-//         }
-//     ]
-// },
-// {
-//     id: 2,
-//     post: 'some post2',
-//     title: 'title 2',
-//     author: 'Ivanov',
-//     comments: [
-//         {
-//             id: 1.1,
-//             comment: 'some comment1',
-//             title: 'title 1',
-//             author: 'Rimus'
-//         },
-//         {
-//             id: 1.2,
-//             comment: 'some comment2',
-//             title: 'title 2',
-//             author: 'Uncle'
-//         },
-//         {
-//             id: 1.3,
-//             comment: 'some comment3',
-//             title: 'title 3',
-//             author: 'Rimus'
-//         }
-//     ]
-// },
-// {
-//     id: 3,
-//     post: 'some post3',
-//     title: 'title 3',
-//     author: 'Rimus'
-// },
-// {
-//     id: 4,
-//     post: 'some post4',
-//     title: 'title 4',
-//     author: 'Uncle'
-// }
-
-// ]
