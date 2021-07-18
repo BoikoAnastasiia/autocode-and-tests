@@ -23,9 +23,23 @@ const validateTitle = value => {
 // validateTitle('Title?'); // 'VALID'
 
 const sum = (value1, value2) => {
-  // Student implementation
-  return;
+  let divided = value1;
+  let stringNumber = value2;
+
+  if (typeof value1 === 'string' && !isNaN(value1)) {
+    stringNumber = value1;
+    divided = value2;
+  }
+  if (divided % 3 === 0 || divided % 5 === 0 || divided % 15 === 0) {
+    divided = divided * -1;
+  }
+  return divided + +stringNumber;
 };
+
+// sum('25', 15); // 10
+// sum(41, '3'); // 44
+// sum('3', 45); // -42
+// sum('15', 15); // 0
 
 // Write a title validation function called “validateTitle”, that takes an argument and validates it by the rules:
 
