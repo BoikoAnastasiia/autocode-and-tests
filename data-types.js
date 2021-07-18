@@ -8,7 +8,7 @@ function convert(str) {
 }
 
 const executeforEach = (array, func) => {
-  for (i = 0; i < array.length; i++) {
+  for (let i = 0; i < array.length; i++) {
     func(array[i]);
   }
   return;
@@ -37,10 +37,17 @@ const flipOver = str => {
 };
 
 const makeListFromRange = array => {
-  let max = Math.max(...array);
-  let min = Math.min(...array);
-  return [min, max];
+  let ar = [];
+  for (i = array[0]; i <= array[1]; i++) {
+    ar.push(i);
+  }
+  if (array.length === 1) {
+    ar = [...array];
+  }
+  return ar;
 };
+
+console.log(makeListFromRange[5]);
 
 const getArrayOfKeys = (array, name) => {
   return array.map(el => el[name]);
@@ -62,8 +69,6 @@ const substitute = ar =>
 const getPastDay = (date, pastdays) => {
   return new Date(date.setDate(date.getDate() - pastdays)).getDate();
 };
-// const date = new Date(2019, 0, 2);
-// console.log(getPastDay(date, 2));
 
 const formatDate = date => {
   return new Intl.DateTimeFormat('en-ZA', {
@@ -72,11 +77,10 @@ const formatDate = date => {
     month: 'numeric',
     hour: '2-digit',
     minute: '2-digit',
-  }).format(date);
+  })
+    .format(date)
+    .replace(',', '');
 };
-// '2018/06/15 09:15';
-console.log(formatDate(new Date('6/15/2018 09:15:00')));
-console.log(formatDate(new Date()));
 
 // TASK № 1
 
