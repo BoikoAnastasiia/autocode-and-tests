@@ -48,7 +48,9 @@ const getSum = (str1, str2) => {
       carry = Math.floor(sum / 10);
     }
 
-    if (carry > 0) str += String.fromCharCode(carry + '0'.charCodeAt(0));
+    if (carry > 0) {
+      str += String.fromCharCode(carry + '0'.charCodeAt(0));
+    }
 
     str = str.split('').reverse().join('');
     return str;
@@ -118,7 +120,7 @@ let listOfPosts1 = [
 ];
 
 const getQuantityPostsByAuthor = (listOfPosts, authorName) => {
-  let post = listOfPosts.filter(el => el.author == authorName).length || 0;
+  let post = listOfPosts.filter(el => el.author === authorName).length || 0;
   let comments =
     listOfPosts
       .map(el => el.comments)
@@ -131,53 +133,58 @@ const getQuantityPostsByAuthor = (listOfPosts, authorName) => {
 
 const tickets = people => {
   people = people.map(el => +el);
-  let quarter = people.filter(el => el == 25).length;
-  let pineapple = people.filter(el => el == 50).length;
+  let quarter = people.filter(el => el === 25).length;
+  let pineapple = people.filter(el => el === 50).length;
   let boxOffice = [];
+  console.log('initial array', people);
   for (let i = 0; i < people.length; i++) {
-    if (people[i] === 25) {
-      boxOffice.push(25);
-    }
-
-    if (people[i] === 50) {
-      boxOffice.push(50);
-      if (quarter === 1) {
+    if (people[i] === 100) {
+      if (quarter >= 1 && pineapple) {
+        boxOffice.splice(boxOffice.indexOf(50), 1);
         boxOffice.splice(boxOffice.indexOf(25), 1);
       }
+      if (quarter >= 3) {
+        boxOffice.splice(boxOffice.indexOf(25), 1);
+        boxOffice.splice(boxOffice.indexOf(25), 1);
+        boxOffice.splice(boxOffice.indexOf(25), 1);
+      }
+      console.log('after 100', boxOffice);
     }
-
     if (people[i] === 75) {
       boxOffice.push(75);
-      if (quarter === 2) {
+      if (quarter >= 2) {
         boxOffice.splice(boxOffice.indexOf(25), 1);
         boxOffice.splice(boxOffice.indexOf(25), 1);
       }
       if (pineapple) {
         boxOffice.splice(boxOffice.indexOf(50), 1);
       }
+      console.log('after 75', boxOffice);
     }
-    if (people[i] === 100) {
-      if (quarter === 3) {
-        boxOffice.splice(boxOffice.indexOf(25), 1);
-        boxOffice.splice(boxOffice.indexOf(25), 1);
+
+    if (people[i] === 50) {
+      boxOffice.push(50);
+      if (quarter) {
         boxOffice.splice(boxOffice.indexOf(25), 1);
       }
-      if (quarter === 2 && pineapple === 1) {
-        boxOffice.splice(boxOffice.indexOf(25), 1);
-        boxOffice.splice(boxOffice.indexOf(25), 1);
-        boxOffice.splice(boxOffice.indexOf(50), 1);
-      }
+      console.log('after 50', boxOffice);
+    }
+
+    if (people[i] === 25) {
+      boxOffice.push(25);
+      console.log('after 25', boxOffice);
     }
   }
-  console.log(boxOffice.length);
-  if (boxOffice.length) {
+  console.log(boxOffice);
+  if (boxOffice.length || boxOffice.every(el => el === 25)) {
     return 'NO';
   }
   return 'YES';
 };
 
-console.log(tickets(['25', '50', '100']));
-
+console.log(tickets([25, 25, 25, 25, 25, 25]));
+// 25, 50, 25, 50, 25, 50, 25, 100;YES;
+// [25, 25, 50, 50, 25, 100]; YES
 // tickets([25, 25, 50]); // => 'YES'
 // tickets([25, 100]); // => 'NO'
 // tickets([25, 25, 50, 100]); // 'YES'
