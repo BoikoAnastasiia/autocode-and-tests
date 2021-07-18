@@ -116,7 +116,6 @@ let listOfPosts1 = [
     author: 'Uncle',
   },
 ];
-console.log(listOfPosts1);
 
 const getQuantityPostsByAuthor = (listOfPosts, authorName) => {
   let post = listOfPosts.filter(el => el.author == authorName).length || 0;
@@ -130,14 +129,55 @@ const getQuantityPostsByAuthor = (listOfPosts, authorName) => {
   return `Post:${post},comments:${comments}`;
 };
 
-console.log(getQuantityPostsByAuthor(listOfPosts1, 'Rimus'));
-
 const tickets = people => {
+  people = people.map(el => +el);
   let quarter = people.filter(el => el == 25).length;
   let pineapple = people.filter(el => el == 50).length;
+  let boxOffice = [];
+  for (let i = 0; i < people.length; i++) {
+    if (people[i] === 25) {
+      boxOffice.push(25);
+    }
+
+    if (people[i] === 50) {
+      boxOffice.push(50);
+      if (quarter === 1) {
+        boxOffice.splice(boxOffice.indexOf(25), 1);
+      }
+    }
+
+    if (people[i] === 75) {
+      boxOffice.push(75);
+      if (quarter === 2) {
+        boxOffice.splice(boxOffice.indexOf(25), 1);
+        boxOffice.splice(boxOffice.indexOf(25), 1);
+      }
+      if (pineapple) {
+        boxOffice.splice(boxOffice.indexOf(50), 1);
+      }
+    }
+    if (people[i] === 100) {
+      if (quarter === 3) {
+        boxOffice.splice(boxOffice.indexOf(25), 1);
+        boxOffice.splice(boxOffice.indexOf(25), 1);
+        boxOffice.splice(boxOffice.indexOf(25), 1);
+      }
+      if (quarter === 2 && pineapple === 1) {
+        boxOffice.splice(boxOffice.indexOf(25), 1);
+        boxOffice.splice(boxOffice.indexOf(25), 1);
+        boxOffice.splice(boxOffice.indexOf(50), 1);
+      }
+    }
+  }
+  console.log(boxOffice.length);
+  if (boxOffice.length) {
+    return 'NO';
+  }
+  return 'YES';
 };
 
-// console.log(tickets([25, 25, 50]));
+console.log(tickets(['25', '50', '100']));
+
 // tickets([25, 25, 50]); // => 'YES'
 // tickets([25, 100]); // => 'NO'
 // tickets([25, 25, 50, 100]); // 'YES'
@@ -190,11 +230,6 @@ const tickets = people => {
 // Create function that gets two arguments: the first one is array of objects, the second one is string (name of author)
 
 // Your function should return quantity of posts with author from argument of function and the quantity of all comments with the same author. Example of array:
-
-// For example:
-// function getQuntityPostsByAuthor (listOfPosts1, 'Rimus') {
-// // your code
-// }
 
 // Your result should be a string like this :  'Post:1,comments:3'  ,
 // If there aren’t post or comments your result will be a string like this 'Post:0,comments:0'
