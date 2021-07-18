@@ -62,22 +62,21 @@ const substitute = ar =>
 const getPastDay = (date, pastdays) => {
   return new Date(date.setDate(date.getDate() - pastdays)).getDate();
 };
-const date = new Date(2019, 0, 2);
-console.log(getPastDay(date, 2));
+// const date = new Date(2019, 0, 2);
+// console.log(getPastDay(date, 2));
 
 const formatDate = date => {
-  let options = {
+  return new Intl.DateTimeFormat('en-ZA', {
     year: 'numeric',
-    month: 'short',
-    weekday: 'long',
     day: 'numeric',
-  };
-
-  console.dir(date.toLocaleString(options));
-  return date.toLocaleString();
+    month: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit',
+  }).format(date);
 };
 // '2018/06/15 09:15';
 console.log(formatDate(new Date('6/15/2018 09:15:00')));
+console.log(formatDate(new Date()));
 
 // TASK № 1
 
