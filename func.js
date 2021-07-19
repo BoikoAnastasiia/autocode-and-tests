@@ -1,21 +1,16 @@
 const getSum = (str1, str2) => {
-  const proofOfNumberInString = str => {
-    return str.split('').every(el => !isNaN(+el));
-  };
-
+  if (str1 === '') {
+    str1 = '0';
+  }
+  if (str2 === '') {
+    str2 = '0';
+  }
   if (
     typeof str1 === 'string' &&
     typeof str2 === 'string' &&
-    proofOfNumberInString(str1) &&
-    proofOfNumberInString(str2)
+    str1.split('').every(el => !isNaN(+el)) &&
+    str2.split('').every(el => !isNaN(+el))
   ) {
-    if (str1 === '') {
-      str1 = 0;
-    }
-    if (str2 === '') {
-      str2 = 0;
-    }
-
     if (str1.length > str2.length) {
       let temp = str1;
       str1 = str2;
@@ -37,14 +32,14 @@ const getSum = (str1, str2) => {
         '0'.charCodeAt(0) +
         (str2[i].charCodeAt(0) - '0'.charCodeAt(0)) +
         carry;
-      str += String.fromCharCode(sum % 10 + '0'.charCodeAt(0));
+      str += String.fromCharCode((sum % 10) + '0'.charCodeAt(0));
 
       carry = Math.floor(sum / 10);
     }
 
     for (let i = n1; i < n2; i++) {
       let sum = str2[i].charCodeAt(0) - '0'.charCodeAt(0) + carry;
-      str += String.fromCharCode(sum % 10 + '0'.charCodeAt(0));
+      str += String.fromCharCode((sum % 10) + '0'.charCodeAt(0));
       carry = Math.floor(sum / 10);
     }
 
@@ -58,6 +53,9 @@ const getSum = (str1, str2) => {
 
   return false;
 };
+
+console.log(getSum('', '45'));
+
 let listOfPosts1 = [
   {
     id: 1,
@@ -69,15 +67,15 @@ let listOfPosts1 = [
         id: 1.1,
         comment: 'some comment1',
         title: 'title 1',
-        author: 'Rimus'
+        author: 'Rimus',
       },
       {
         id: 1.2,
         comment: 'some comment2',
         title: 'title 2',
-        author: 'Uncle'
-      }
-    ]
+        author: 'Uncle',
+      },
+    ],
   },
   {
     id: 2,
@@ -89,34 +87,34 @@ let listOfPosts1 = [
         id: 1.1,
         comment: 'some comment1',
         title: 'title 1',
-        author: 'Rimus'
+        author: 'Rimus',
       },
       {
         id: 1.2,
         comment: 'some comment2',
         title: 'title 2',
-        author: 'Uncle'
+        author: 'Uncle',
       },
       {
         id: 1.3,
         comment: 'some comment3',
         title: 'title 3',
-        author: 'Rimus'
-      }
-    ]
+        author: 'Rimus',
+      },
+    ],
   },
   {
     id: 3,
     post: 'some post3',
     title: 'title 3',
-    author: 'Rimus'
+    author: 'Rimus',
   },
   {
     id: 4,
     post: 'some post4',
     title: 'title 4',
-    author: 'Uncle'
-  }
+    author: 'Uncle',
+  },
 ];
 
 const getQuantityPostsByAuthor = (listOfPosts, authorName) => {
@@ -198,7 +196,6 @@ const tickets = people => {
   }
   return 'YES';
 };
-console.log(tickets([25, 50, 100]));
 // 25, 50, 25, 50, 25, 50, 25, 100;YES;
 // [25, 25, 50, 50, 25, 100]; YES
 // tickets([25, 25, 50]); // => 'YES'
