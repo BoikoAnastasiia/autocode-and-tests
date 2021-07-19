@@ -37,14 +37,14 @@ const getSum = (str1, str2) => {
         '0'.charCodeAt(0) +
         (str2[i].charCodeAt(0) - '0'.charCodeAt(0)) +
         carry;
-      str += String.fromCharCode((sum % 10) + '0'.charCodeAt(0));
+      str += String.fromCharCode(sum % 10 + '0'.charCodeAt(0));
 
       carry = Math.floor(sum / 10);
     }
 
     for (let i = n1; i < n2; i++) {
       let sum = str2[i].charCodeAt(0) - '0'.charCodeAt(0) + carry;
-      str += String.fromCharCode((sum % 10) + '0'.charCodeAt(0));
+      str += String.fromCharCode(sum % 10 + '0'.charCodeAt(0));
       carry = Math.floor(sum / 10);
     }
 
@@ -69,15 +69,15 @@ let listOfPosts1 = [
         id: 1.1,
         comment: 'some comment1',
         title: 'title 1',
-        author: 'Rimus',
+        author: 'Rimus'
       },
       {
         id: 1.2,
         comment: 'some comment2',
         title: 'title 2',
-        author: 'Uncle',
-      },
-    ],
+        author: 'Uncle'
+      }
+    ]
   },
   {
     id: 2,
@@ -89,34 +89,34 @@ let listOfPosts1 = [
         id: 1.1,
         comment: 'some comment1',
         title: 'title 1',
-        author: 'Rimus',
+        author: 'Rimus'
       },
       {
         id: 1.2,
         comment: 'some comment2',
         title: 'title 2',
-        author: 'Uncle',
+        author: 'Uncle'
       },
       {
         id: 1.3,
         comment: 'some comment3',
         title: 'title 3',
-        author: 'Rimus',
-      },
-    ],
+        author: 'Rimus'
+      }
+    ]
   },
   {
     id: 3,
     post: 'some post3',
     title: 'title 3',
-    author: 'Rimus',
+    author: 'Rimus'
   },
   {
     id: 4,
     post: 'some post4',
     title: 'title 4',
-    author: 'Uncle',
-  },
+    author: 'Uncle'
+  }
 ];
 
 const getQuantityPostsByAuthor = (listOfPosts, authorName) => {
@@ -131,58 +131,74 @@ const getQuantityPostsByAuthor = (listOfPosts, authorName) => {
   return `Post:${post},comments:${comments}`;
 };
 
+// const tickets = people => {
+//   people = people.map(el => +el);
+//   let quarter = people.filter(el => el === 25).length;
+//   let pineapple = people.filter(el => el === 50).length;
+
+//   console.log('initial array', people);
+//   for (let i = 0; i < people.length; i++) {
+//     if (people[i] === 100) {
+//       let boxOffice = [];
+
+//       if (quarter && pineapple) {
+//         boxOffice.splice(boxOffice.indexOf(50), 1);
+//         boxOffice.splice(boxOffice.indexOf(25), 1);
+//       }
+//       if (quarter >= 3) {
+//         boxOffice.splice(boxOffice.indexOf(25), 1);
+//         boxOffice.splice(boxOffice.indexOf(25), 1);
+//         boxOffice.splice(boxOffice.indexOf(25), 1);
+//       }
+//       console.log('after manipulations 100', boxOffice);
+//     }
+
+//     if (people[i] === 50) {
+//       boxOffice.push(50);
+//       if (quarter) {
+//         boxOffice.splice(boxOffice.indexOf(25), 1);
+//       }
+//       console.log('after 50', boxOffice);
+//     }
+
+//     if (people[i] === 25) {
+//       boxOffice.push(25);
+//       console.log('after 25', boxOffice);
+//     }
+//     console.log('final boxoffice', boxOffice);
+//     return boxOffice;
+//   }
+// };
 const tickets = people => {
   people = people.map(el => +el);
-  let quarter = people.filter(el => el === 25).length;
-  let pineapple = people.filter(el => el === 50).length;
-  let boxOffice = [];
-  console.log('initial array', people);
+
+  let [n25, n50, n100] = [0, 0, 0];
   for (let i = 0; i < people.length; i++) {
-    if (people[i] === 100) {
-      if (quarter >= 1 && pineapple) {
-        boxOffice.splice(boxOffice.indexOf(50), 1);
-        boxOffice.splice(boxOffice.indexOf(25), 1);
-      }
-      if (quarter >= 3) {
-        boxOffice.splice(boxOffice.indexOf(25), 1);
-        boxOffice.splice(boxOffice.indexOf(25), 1);
-        boxOffice.splice(boxOffice.indexOf(25), 1);
-      }
-      console.log('after 100', boxOffice);
+    switch (people[i]) {
+      case 25:
+        n25++;
+        break;
+      case 50:
+        n50++;
+        n25--;
+        break;
+      case 100:
+        n100++;
+        n25--;
+        if (n50) {
+          n50--;
+        } else {
+          n25 -= 2;
+        }
+        break;
     }
-    if (people[i] === 75) {
-      boxOffice.push(75);
-      if (quarter >= 2) {
-        boxOffice.splice(boxOffice.indexOf(25), 1);
-        boxOffice.splice(boxOffice.indexOf(25), 1);
-      }
-      if (pineapple) {
-        boxOffice.splice(boxOffice.indexOf(50), 1);
-      }
-      console.log('after 75', boxOffice);
+    if ([n25, n50, n100].some(v => v < 0)) {
+      return 'NO';
     }
-
-    if (people[i] === 50) {
-      boxOffice.push(50);
-      if (quarter) {
-        boxOffice.splice(boxOffice.indexOf(25), 1);
-      }
-      console.log('after 50', boxOffice);
-    }
-
-    if (people[i] === 25) {
-      boxOffice.push(25);
-      console.log('after 25', boxOffice);
-    }
-  }
-  console.log(boxOffice);
-  if (boxOffice.length || boxOffice.every(el => el === 25)) {
-    return 'NO';
   }
   return 'YES';
 };
-
-console.log(tickets([25, 25, 25, 25, 25, 25]));
+console.log(tickets([25, 50, 100]));
 // 25, 50, 25, 50, 25, 50, 25, 100;YES;
 // [25, 25, 50, 50, 25, 100]; YES
 // tickets([25, 25, 50]); // => 'YES'
