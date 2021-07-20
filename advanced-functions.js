@@ -20,13 +20,21 @@ const cache = func => {
 //=============================================
 // ------------------------------------ TASK №2
 //=============================================
-const forwardBackwardSteps = () => {
-  let step = 0;
-  function forward() {}
-  function backward() {}
-  function revealStep() {}
+const forwardBackwardSteps = {
+  step: 0,
+  forward() {
+    this.step++;
+    return this;
+  },
+  backward() {
+    this.step--;
+    return this;
+  },
+  revealStep() {
+    console.log(this.step);
+  },
 };
-
+forwardBackwardSteps.forward().forward().backward().forward().revealStep();
 //=============================================
 // ------------------------------------ TASK №3
 //=============================================
