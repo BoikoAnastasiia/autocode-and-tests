@@ -6,13 +6,12 @@ const cache = func => {
 
   return function (x) {
     if (cache.has(x)) {
-      // если кеш содержит такой x,
-      return cache.get(x); // читаем из него результат
+      return cache.get(x);
     }
 
-    let result = func(x); // иначе, вызываем функцию
+    let result = func(x);
 
-    cache.set(x, result); // и кешируем (запоминаем) результат
+    cache.set(x, result);
     return result;
   };
 };
@@ -34,19 +33,23 @@ const forwardBackwardSteps = {
     console.log(this.step);
   },
 };
-forwardBackwardSteps.forward().forward().backward().forward().revealStep();
+
 //=============================================
 // ------------------------------------ TASK №3
 //=============================================
-const applyAll = () => {
-  // Do your magic here
-};
-const sum = () => {
-  // Do your magic here
+const applyAll = (func, ...args) => {
+  return func(...args);
 };
 
-const mul = () => {
-  // Do your magic here
+const sum = (...args) => {
+  return args.reduce((acc, value) => acc + value);
 };
+
+const mul = (...args) => {
+  return args.reduce((acc, value) => acc * value);
+};
+
+console.log(mul(3, 5, 7));
 
 //=============================================
+console.log(applyAll(mul, 1, 2, 3));
