@@ -1,18 +1,16 @@
 //=============================================
 // ------------------------------------ TASK №1
 //=============================================
-const cache = func => {
-  let cache = new Map();
-
-  return function (x) {
-    if (cache.has(x)) {
-      return cache.get(x);
+const cache = fun => {
+  let cache = {};
+  return function (n) {
+    if (cache[n] != undefined) {
+      return cache[n];
+    } else {
+      let result = fun(n);
+      cache[n] = result;
+      return result;
     }
-
-    let result = func(x);
-
-    cache.set(x, result);
-    return result;
   };
 };
 
