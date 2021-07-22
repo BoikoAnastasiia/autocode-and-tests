@@ -56,7 +56,11 @@ class Fighter {
   }
 
   dealDamage(amount) {
-    this.#hp -= amount;
+    if (this.getHealth() - amount < 0) {
+      this.#hp = 0;
+    } else {
+      this.#hp = this.getHealth() - amount;
+    }
   }
 
   addWin() {
@@ -78,19 +82,19 @@ function battle(fighter1, fighter2) {
     fighter2.attack(fighter1);
   }
 
-  if (fighter1.getHealth() <= 0) {
+  if (fighter1.getHealth() === 0) {
     fighter2.addWin();
     fighter1.addLoss();
     console.log(`${fighter1.getName()} is dead`);
     return 0;
   }
-  if (fighter2.getHealth() <= 0) {
+  if (fighter2.getHealth() === 0) {
     fighter1.addWin();
     fighter2.addLoss();
     console.log(`${fighter2.getName()} is dead`);
     return 0;
   }
-  if (fighter1.getHealth() <= 0 && fighter2.getHealth() <= 0) {
+  if (fighter1.getHealth() === 0 && fighter2.getHealth() === 0) {
     return 0;
   }
 }
