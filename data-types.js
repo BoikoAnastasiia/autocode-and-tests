@@ -74,15 +74,22 @@ const getPastDay = (date, pastdays) => {
 };
 
 const formatDate = date => {
-  return new Intl.DateTimeFormat('en-ZA', {
-    year: 'numeric',
-    day: 'numeric',
-    month: 'numeric',
-    hour: '2-digit',
-    minute: '2-digit',
-  })
-    .format(date)
-    .replace(',', '');
+  let dd = date.getDate();
+  if (dd < 10) dd = '0' + dd;
+
+  let mm = date.getMonth() + 1;
+  if (mm < 10) mm = '0' + mm;
+
+  let yy = date.getFullYear();
+  if (yy < 10) yy = '0' + yy;
+
+  let hh = date.getHours();
+  if (hh < 10) hh = '0' + hh;
+
+  let min = date.getMinutes();
+  if (min < 10) min = '0' + min;
+
+  return yy + '/' + mm + '/' + dd + ' ' + hh + ':' + min;
 };
 
 // TASK № 1
