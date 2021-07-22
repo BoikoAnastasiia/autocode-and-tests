@@ -13,6 +13,8 @@ class Fighter {
     this.#strength = strength;
     this.#agility = agility;
     this.#hp = hp;
+    this.win = 0;
+    this.lose = 0;
   }
 
   getName() {
@@ -40,11 +42,13 @@ class Fighter {
       console.log(`${attacker.getName()} attack missed`);
     }
 
-    defender.getHealth() - attacker.getDamage();
-
-    console.log(
-      `${defender.getName()} makes ${defender.getDamage()} damage to ${attacker.getName()} `
-    );
+    if (defender.getAgility() + defender.getStrength() < isSuccessful) {
+      attacker.dealDamage(attacker.getDamage());
+      console.log(
+        `${attacker.getName()} makes ${attacker.getDamage()} damage to ${defender.getName()} `
+      );
+    }
+    return;
   }
 
   heal(amount) {
@@ -52,34 +56,67 @@ class Fighter {
   }
 
   dealDamage(amount) {
-    return this.#hp - amount;
+    this.#hp -= amount;
   }
 
-  addWin() {}
+  addWin() {
+    return this.win++;
+  }
+
+  addLoss() {
+    return this.lose++;
+  }
 
   logCombatHistory() {
-    console.log(`Name:${this.#name},Wins:${win},Losses:${lose}`);
+    console.log(`Name:${this.#name},Wins:${this.win},Losses:${this.lose}`);
   }
 }
 
-const fighter1 = new Fighter({
+function battle(fighter1, fighter2) {
+  while (fighter1.getHealth() > 0 && fighter2.getHealth() > 0) {
+    fighter1.attack(fighter2);
+    fighter2.attack(fighter1);
+  }
+
+  if (fighter1.getHealth() <= 0) {
+    fighter2.addWin();
+    fighter1.addLoss();
+    console.log(`${fighter1.getName()} is dead`);
+    return 0;
+  }
+  if (fighter2.getHealth() <= 0) {
+    fighter1.addWin();
+    fighter2.addLoss();
+    console.log(`${fighter2.getName()} is dead`);
+    return 0;
+  }
+  if (fighter1.getHealth() <= 0 && fighter2.getHealth() <= 0) {
+    return 0;
+  }
+}
+
+const John = new Fighter({
   name: 'John',
   damage: 25,
   hp: 105,
   strength: 30,
   agility: 40,
 });
-const fighter2 = new Fighter({
-  name: 'Sasha',
-  damage: 45,
-  hp: 100,
+const Alex = new Fighter({
+  name: 'Alex',
+  damage: 35,
+  hp: 200,
   strength: 30,
   agility: 25,
 });
+// console.log('John health before fight', John.getHealth());
+// console.log('Alex health before fight', Alex.getHealth());
 
-fighter2.attack(fighter1); //'Sasha attack missed'
-fighter1.attack(fighter2); //'John makes 25 damage to Sasha'
-fighter1.dealDamage(20);
-const battle = function (fighter1, fighter2) {
-  // add an implementation here
-};
+battle(John, Alex);
+// John.attack(Alex);
+// Alex.attack(John);
+
+// console.log('John health after fight', John.getHealth());
+// console.log('Alex health after fight', Alex.getHealth());
+
+// Alex.logCombatHistory();
